@@ -1,0 +1,163 @@
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: Consolas, monospace;
+}
+
+:root {
+  --text-hover-color: #409eff;
+}
+
+html {
+  --bg-color: #ffffff;
+  --text-color: #383838;
+  --border-color: #ccc;
+}
+
+html.dark {
+  --bg-color: #222222;
+  --text-color: #d1d1d1;
+  --border-color: #444444;
+}
+
+select,
+input {
+  font-family: Consolas, monospace;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.wrap {
+  margin: 0 auto;
+  padding: 50px 0;
+  display: flex;
+  flex-flow: column;
+  width: 96%;
+  max-width: 600px;
+}
+
+.wrap .check_box {
+  flex: none;
+  padding: 10px 0;
+}
+
+.wrap .check_box label {
+  float: left;
+  line-height: 30px;
+  margin-right: 20px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.wrap .check_box label:hover {
+  color: var(--text-hover-color);
+  border-bottom-color: var(--text-hover-color);
+}
+
+.wrap .check_box label input {
+  cursor: pointer;
+}
+
+.wrap .input_box {
+  flex: none;
+  display: flex;
+  height: 50px;
+  font-size: 0px;
+  line-height: 50px;
+  border: 1px solid var(--border-color);
+}
+
+.wrap .input_box .clear,
+.wrap .input_box .eye {
+  flex: none;
+  display: none;
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+  padding: 0 5px;
+  cursor: pointer;
+  border: none;
+  border-left: 1px solid var(--border-color);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.wrap .input_box .clear {
+  font-size: 24px;
+  padding: 0 14px;
+  border: none;
+}
+
+.wrap .show_pd span:hover,
+.wrap .input_box .eye:hover,
+.wrap .input_box .clear:hover {
+  color: var(--text-hover-color);
+}
+
+.wrap .input_box .pd_length {
+  height: 100%;
+  background-color: transparent;
+  flex: none;
+  font-size: 18px;
+  outline: none;
+  border: none;
+  border-right: 1px solid var(--border-color);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.wrap .input_box input {
+  flex: auto;
+  font-size: 18px;
+  outline: none;
+  margin: 0;
+  border: none;
+  text-align: center;
+  width: 0px;
+  height: 100%;
+  padding: 0 10px;
+  background-color: transparent;
+}
+
+.wrap .show_pd {
+  flex: none;
+  font-size: 24px;
+  margin-top: 30px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.wrap .show_pd span {
+  cursor: pointer;
+  word-break: break-all;
+}
+
+.enter_length {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  padding: 10px;
+  font-size: 20px;
+}
+.des {
+  line-height: 1.5;
+}

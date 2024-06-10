@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="google" content="notranslate" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="assets" />
+    <link rel="shortcut icon" href="./logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>encryption</title>
+  </head>
+
+  <body>
+    <div class="enter_length"></div>
+    <div class="wrap">
+      <div class="check_box">
+        <label>
+          <input checked type="checkbox" />
+          a-z
+        </label>
+        <label>
+          <input checked type="checkbox" />
+          0-9
+        </label>
+        <label>
+          <input checked type="checkbox" />
+          @#$%^&*
+        </label>
+        <label>
+          <input checked type="checkbox" />
+          A-Z
+        </label>
+      </div>
+      <div class="input_box">
+        <select class="pd_length">
+          <option value="6">6位</option>
+          <option value="12">12位</option>
+          <option value="18">18位</option>
+          <option value="24">24位</option>
+        </select>
+        <input
+          autocomplete="off"
+          placeholder="key"
+          onmouseenter="this.focus()"
+          type="password" />
+        <div class="clear">&times;</div>
+        <div class="eye">显示</div>
+      </div>
+      <div class="show_pd"><span></span></div>
+      <p class="des">
+        妈妈再也不用担心我忘记密码了！只需要输入一个简单好记的key，就可以生成一个对应的复杂密码。
+      </p>
+    </div>
+    <script src="./js/md5.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
+</html>

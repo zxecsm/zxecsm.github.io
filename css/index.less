@@ -1,0 +1,137 @@
+:root {
+  --text-hover-color: #409eff;
+}
+html {
+  --bg-color: #fff;
+  --text-color: #2b2a2a;
+  --title-color: #09b70c;
+  --link-color: #105561;
+  --res-color: #c74c0f;
+}
+html.dark {
+  --bg-color: #000;
+  --text-color: #e4e2e2;
+  --title-color: #44d646;
+  --link-color: #27acc4;
+  --res-color: #c9815d;
+}
+/* 选中背景和字体颜色 */
+::selection {
+  background: var(--text-color);
+  color: var(--bg-color);
+}
+
+::-moz-selection {
+  background: var(--text-color);
+  color: var(--bg-color);
+}
+
+::-webkit-selection {
+  background: var(--text-color);
+  color: var(--bg-color);
+}
+@font-face {
+  font-family: 'codeFont';
+  src: url('../font/consolas.ttf') format('truetype');
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow: hidden;
+}
+body {
+  cursor: url('../img/normal.cur'), default;
+}
+* {
+  text-shadow: 0 0 #888;
+}
+#box {
+  width: 95%;
+  min-height: 70%;
+  max-height: 95%;
+  max-width: 800px;
+  padding: 10px;
+  line-height: 30px;
+  font-family: consolas, 'codeFont';
+  box-sizing: border-box;
+  word-break: break-all;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .res_box {
+    overflow: hidden;
+    .res {
+      clear: both;
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+      color: var(--res-color);
+      &.link {
+        clear: none;
+        float: left;
+      }
+      .logo {
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-size: 65%;
+        background-position: center;
+        background-image: url(../img/loading.svg);
+      }
+      span {
+        &.cursor {
+          color: var(--link-color);
+          cursor: url('../img/link.cur'), pointer;
+          text-decoration: underline;
+          &:hover {
+            color: var(--text-hover-color);
+            text-decoration: underline wavy;
+          }
+        }
+      }
+    }
+  }
+  .enter {
+    background-color: var(--text-color);
+    color: transparent;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-shadow: none;
+    &::before {
+      content: 'H';
+    }
+    &.active {
+      animation: glint 1s infinite;
+    }
+  }
+  .title {
+    color: var(--title-color);
+  }
+  @keyframes glint {
+    0% {
+      background-color: var(--text-color);
+    }
+    50% {
+      background-color: transparent;
+    }
+    100% {
+      background-color: var(--text-color);
+    }
+  }
+}

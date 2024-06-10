@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="google" content="notranslate" />
+    <meta name="description" content="这是一个简洁的个人主页" />
+    <meta name="Keywords" content="home,主页" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0;"/> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- <meta name="theme-color" content="#2979ff"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="assets" />
+    <title>homepage</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      // 获取网址图标
+      function getFavicon(url) {
+        return `https://hello.hechang.me/api/getfavicon?u=${encodeURIComponent(
+          url
+        )}`;
+      }
+      // 默认本地持久数据
+      const defaultLocalData = {
+        dark: 0, // 黑暗模式 0：随系统 1：开启 2：关闭
+        linkMode: 'row', // 排列模式 row: 横向 col：纵向
+        clickHeart: true, // 点击比心 true：开 false：关
+        keySound: true, // 提示音 true：开 false：关
+        inputEffect: true, // 模拟输入 true：开 false：关
+      };
+      // 标头
+      const title = 'root@zxecsm:~# ';
+      // 结束语
+      const endWord = 'Welcome to my homepage';
+      // 命令和输出结果
+      const data = [
+        {
+          cmd: 'cat me.txt',
+          res: [
+            { type: 'text', name: 'hakuna matata🪄' },
+            {
+              type: 'link',
+              name: 'Github',
+              link: 'https://github.com/zxecsm',
+              logo: '/icon/github.png',
+            },
+            {
+              type: 'link',
+              name: 'Emial',
+              link: 'mailto:zxecsm@outlook.com',
+              logo: '/icon/email.png',
+            },
+          ],
+        },
+        {
+          cmd: `./links.sh`,
+          res: [
+            {
+              type: 'link',
+              name: '生成密码',
+              link: '/page/getpd',
+              logo: '/icon/pd.png',
+            },
+            {
+              type: 'link',
+              name: '数独',
+              link: '/page/suduku',
+              logo: '/icon/sudu.png',
+            },
+            {
+              type: 'link',
+              name: '扫雷',
+              link: '/page/bomb',
+              logo: '/icon/bomb.svg',
+            },
+            {
+              type: 'link',
+              name: 'Bing',
+              link: 'https://bing.com',
+            },
+          ],
+        },
+        {
+          cmd: `./date.sh`,
+          res: [{ type: 'date', name: '日期' }],
+        },
+        {
+          cmd: './setting.sh',
+          res: [{ type: 'setting', name: '设置' }],
+        },
+      ];
+      const settingData = [
+        {
+          cmd: './settingList.sh',
+          res: [
+            { type: 'dark', name: '黑暗模式：' },
+            { type: 'linkMode', name: '排列模式：' },
+            { type: 'inputEffect', name: '模拟输入：' },
+            { type: 'clickHeart', name: '点击比心：' },
+            { type: 'keySound', name: '提示音：' },
+            { type: 'back', name: '返回' },
+          ],
+        },
+      ];
+    </script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/click.js"></script>
+  </body>
+</html>
