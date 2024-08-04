@@ -293,6 +293,17 @@ function switchDarkStatus() {
   }
   _setData('dark', darkStatus);
 }
+// 监听黑暗模式的变化
+window
+  .matchMedia('(prefers-color-scheme: dark)')
+  .addEventListener('change', (event) => {
+    if (darkStatus !== 0) return;
+    if (event.matches) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  });
 // 处理点击
 box.addEventListener('click', hdClick);
 function hdClick(e) {
