@@ -25,6 +25,18 @@
           url
         )}`;
       }
+      // 随机壁纸
+      window.addEventListener('load', () => {
+        const el = document.body;
+        const url = `https://hello.hechang.me/api/bg/r${
+          window.innerWidth > 800 ? '' : '?s=y'
+        }`;
+        el.style.backgroundImage = `url(${url})`;
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center';
+        el.style.backgroundAttachment = 'fixed';
+      });
       // 默认本地持久数据
       const defaultLocalData = {
         dark: 0, // 黑暗模式 0：随系统 1：开启 2：关闭
