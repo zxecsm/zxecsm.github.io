@@ -28,8 +28,8 @@
       // 随机壁纸
       window.addEventListener('load', () => {
         const el = document.body;
-        const url = `https://hello.hechang.me/api/bg/r${
-          window.innerWidth > 800 ? '' : '?s=y'
+        const url = `https://hello.hechang.me/api/bg/r/${
+          window.innerWidth > 800 ? 'big' : 'small'
         }`;
         el.style.backgroundImage = `url(${url})`;
         el.style.backgroundRepeat = 'no-repeat';
