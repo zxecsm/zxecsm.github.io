@@ -1,0 +1,157 @@
+:root {
+  --text-hover-color: #409eff;
+}
+html {
+  --color: #0f0f0f;
+  --color1: #222222;
+  --color2: #333333;
+  --color3: #444444;
+  --color4: #666666;
+  --color5: #888888;
+  --color6: #aaaaaa;
+  --color7: #cccccc;
+  --color8: #dddddd;
+  --color9: #ebebeb;
+  --color10: #ffffff;
+}
+
+html.dark {
+  --color10: #0f0f0f;
+  --color9: #222222;
+  --color8: #333333;
+  --color7: #444444;
+  --color6: #666666;
+  --color5: #888888;
+  --color4: #aaaaaa;
+  --color3: #cccccc;
+  --color2: #dddddd;
+  --color1: #ebebeb;
+  --color: #ffffff;
+}
+@font-face {
+  font-family: 'codeFont';
+  src: url('../../font/consolas.ttf') format('truetype');
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--color3);
+  background-color: var(--color10);
+  font-family: consolas, 'codeFont';
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+::-webkit-scrollbar {
+  background-color: transparent; /* 滚动条轨道颜色 */
+  max-width: 8px;
+  max-height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color7); /* 滚动条滑块颜色 */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color6);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--color5);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent; /* 滚动条轨道背景颜色 */
+}
+/* 全局设置 box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/* 火狐 */
+@-moz-document url-prefix() {
+  * {
+    scrollbar-color: var(--color7) transparent;
+    scrollbar-width: thin;
+  }
+}
+/* 选中背景和字体颜色 */
+::selection {
+  background: var(--color3);
+  color: var(--color10);
+}
+
+::-moz-selection {
+  background: var(--color3);
+  color: var(--color10);
+}
+
+::-webkit-selection {
+  background: var(--color3);
+  color: var(--color10);
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .notepad {
+    width: 100%;
+    height: 100%;
+    max-height: 800px;
+    max-width: 1000px;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    textarea {
+      flex: auto;
+      color: var(--color3);
+      font-family: consolas, 'codeFont';
+      width: 100%;
+      height: 100%;
+      font-size: 18px; /* 控制文字大小 */
+      line-height: 2em; /* 行高与背景间距一致 */
+      padding: 4px 10px; /* 添加内边距，微调文字对齐 */
+      &.line {
+        white-space: pre;
+      }
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--color10),
+        var(--color10) 1.9em,
+        var(--color8) 2em
+      );
+      border: none;
+      outline: none;
+      resize: none;
+      overflow-y: auto; /* 启用垂直滚动 */
+      background-attachment: local; /* 背景与内容同步滚动 */
+      &::placeholder {
+        color: var(--color5);
+        font-style: italic;
+      }
+    }
+    .setting {
+      flex: none;
+      text-align: center;
+      user-select: none;
+      padding: 10px 0;
+      span,
+      label {
+        cursor: pointer;
+      }
+      span:hover,
+      label:hover {
+        color: var(--text-hover-color);
+      }
+    }
+  }
+}
