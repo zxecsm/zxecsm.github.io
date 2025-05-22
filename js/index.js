@@ -2,6 +2,7 @@ const box = document.querySelector('#box');
 const darkData = ['随系统', '已开启', '已关闭'];
 const linkModeData = { row: '横向排列', col: '纵向排列' };
 const inputSpeed = 100; // 输入速度（毫秒）
+let skipInput = false;
 let HASH = queryURLParams(myOpen()).HASH;
 let enter = null;
 let darkStatus = _getData('dark'),
@@ -17,6 +18,7 @@ if (HASH == 'setting') {
 }
 // 渲染主页
 async function renderHome(data, hasEndWord, immediate) {
+  skipInput = false;
   isEnd = false;
   box.innerHTML = '';
   const fra = createFragment();
@@ -61,6 +63,7 @@ async function renderHome(data, hasEndWord, immediate) {
   }
   enter.classList.add('active');
   isEnd = true;
+  skipInput = false;
 }
 // 渲染命令结果
 async function renderItem(cmd, res, immediate) {
@@ -81,14 +84,17 @@ async function renderCmd(cmd, immediate) {
     if (immediate) {
       fra.appendChild(createCmd(cmd[i]));
     } else {
-      await spaceTime(() => {
-        playSound('/img/key.mp3');
-        const ntb = isNeedToBottom();
-        addToBox(createCmd(cmd[i]));
-        if (ntb) {
-          backToTheBottom();
-        }
-      }, inputSpeed);
+      await spaceTime(
+        () => {
+          playSound('/img/key.mp3');
+          const ntb = isNeedToBottom();
+          addToBox(createCmd(cmd[i]));
+          if (ntb) {
+            backToTheBottom();
+          }
+        },
+        skipInput ? 0 : inputSpeed
+      );
     }
   }
   if (immediate) {
@@ -103,14 +109,17 @@ function renderRes(res, immediate) {
   if (immediate) {
     return fra;
   }
-  return spaceTime(() => {
-    playSound('/img/enter.mp3');
-    const ntb = isNeedToBottom();
-    addToBox(fra);
-    if (ntb) {
-      backToTheBottom();
-    }
-  }, inputSpeed);
+  return spaceTime(
+    () => {
+      playSound('/img/enter.mp3');
+      const ntb = isNeedToBottom();
+      addToBox(fra);
+      if (ntb) {
+        backToTheBottom();
+      }
+    },
+    skipInput ? 0 : inputSpeed
+  );
 }
 // 添加到界面
 function addToBox(el) {
@@ -181,17 +190,6 @@ function createRes(res) {
         }
         oDiv.innerText = name;
       });
-    } else if (type == 'clickHeart') {
-      let h = _getData('clickHeart');
-      oDiv = createLink(
-        { ...res[i], name: h ? '已开启' : '已关闭' },
-        (oDiv) => {
-          if (linkMode == 'row') {
-            oDiv.classList.add('link');
-          }
-          oDiv.innerText = name;
-        }
-      );
     } else if (type == 'keySound') {
       let h = _getData('keySound');
       oDiv = createLink(
@@ -265,11 +263,6 @@ function createLink(obj, cb) {
   oDiv.appendChild(oSpan);
   return oDiv;
 }
-// 切换比心
-function switchHeart() {
-  let h = !_getData('clickHeart');
-  _setData('clickHeart', h);
-}
 // 输入音效
 function switchKeySound() {
   let h = !_getData('keySound');
@@ -311,6 +304,7 @@ try {
 box.addEventListener('click', hdClick);
 function hdClick(e) {
   const t = getTriggerTarget(e, { target: this, selector: '#box .res span' });
+  skipInput = true;
   if (t) {
     const type = t.parentNode.dataset.type;
     if (type == 'link') {
@@ -334,9 +328,6 @@ function hdClick(e) {
     } else if (type == 'linkMode') {
       linkMode = linkMode == 'row' ? 'col' : 'row';
       _setData('linkMode', linkMode);
-      renderHome(settingData, 0, 1);
-    } else if (type == 'clickHeart') {
-      switchHeart();
       renderHome(settingData, 0, 1);
     } else if (type == 'keySound') {
       switchKeySound();
