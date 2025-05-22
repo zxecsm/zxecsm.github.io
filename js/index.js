@@ -1,7 +1,7 @@
 const box = document.querySelector('#box');
 const darkData = ['随系统', '已开启', '已关闭'];
 const linkModeData = { row: '横向排列', col: '纵向排列' };
-const inputSpeed = 100; // 输入速度（毫秒）
+const inputSpeed = 150; // 输入速度（毫秒）
 let skipInput = false;
 let HASH = queryURLParams(myOpen()).HASH;
 let enter = null;
@@ -86,7 +86,9 @@ async function renderCmd(cmd, immediate) {
     } else {
       await spaceTime(
         () => {
-          playSound('/img/key.mp3');
+          if (!skipInput) {
+            playSound('/img/key.mp3');
+          }
           const ntb = isNeedToBottom();
           addToBox(createCmd(cmd[i]));
           if (ntb) {
@@ -111,7 +113,9 @@ function renderRes(res, immediate) {
   }
   return spaceTime(
     () => {
-      playSound('/img/enter.mp3');
+      if (!skipInput) {
+        playSound('/img/enter.mp3');
+      }
       const ntb = isNeedToBottom();
       addToBox(fra);
       if (ntb) {
