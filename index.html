@@ -21,14 +21,14 @@
     <script>
       // 获取网址图标
       function getFavicon(url) {
-        return `https://hello.hechang.me/api/getfavicon?u=${encodeURIComponent(
+        return `https://hello.heanyi.com/api/getfavicon?u=${encodeURIComponent(
           url
         )}`;
       }
       // 随机壁纸
       window.addEventListener('load', () => {
         const el = document.body;
-        const url = `https://hello.hechang.me/api/bg/r/${
+        const url = `https://hello.heanyi.com/api/bg/r/${
           window.innerWidth > 800 ? 'big' : 'small'
         }`;
         el.style.backgroundImage = `url(${url})`;
