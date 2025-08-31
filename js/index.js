@@ -1,7 +1,9 @@
 const box = document.querySelector('#box');
 const darkData = ['随系统', '已开启', '已关闭'];
 const linkModeData = { row: '横向排列', col: '纵向排列' };
-const inputSpeed = 150; // 输入速度（毫秒）
+const inputSpeed = () => {
+  return randomNum(100, 300);
+}; // 输入速度（毫秒）
 let skipInput = false;
 let HASH = queryURLParams(myOpen()).HASH;
 let enter = null;
@@ -95,7 +97,7 @@ async function renderCmd(cmd, immediate) {
             backToTheBottom();
           }
         },
-        skipInput ? 0 : inputSpeed
+        skipInput ? 0 : inputSpeed()
       );
     }
   }
@@ -122,7 +124,7 @@ function renderRes(res, immediate) {
         backToTheBottom();
       }
     },
-    skipInput ? 0 : inputSpeed
+    skipInput ? 0 : inputSpeed()
   );
 }
 // 添加到界面
