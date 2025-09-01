@@ -101,19 +101,6 @@ function queryURLParams(url) {
   url.replace(/#([^?=&#]+)/g, (...[, $1]) => (obj['HASH'] = $1));
   return obj;
 }
-// 提示音
-function playSound(src) {
-  if (_getData('keySound')) {
-    let sound = document.createElement('audio');
-    sound.src = src;
-    sound.volume = 0.1;
-    sound.play();
-    sound.onended = function () {
-      sound.onended = null;
-      sound = null;
-    };
-  }
-}
 // 创建元素
 function createEl(type) {
   return document.createElement(type);

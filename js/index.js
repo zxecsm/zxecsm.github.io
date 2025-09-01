@@ -88,9 +88,6 @@ async function renderCmd(cmd, immediate) {
     } else {
       await spaceTime(
         () => {
-          if (!skipInput) {
-            playSound('/img/key.mp3');
-          }
           const ntb = isNeedToBottom();
           addToBox(createCmd(cmd[i]));
           if (ntb) {
@@ -115,9 +112,6 @@ function renderRes(res, immediate) {
   }
   return spaceTime(
     () => {
-      if (!skipInput) {
-        playSound('/img/enter.mp3');
-      }
       const ntb = isNeedToBottom();
       addToBox(fra);
       if (ntb) {
@@ -196,17 +190,6 @@ function createRes(res) {
         }
         oDiv.innerText = name;
       });
-    } else if (type == 'keySound') {
-      let h = _getData('keySound');
-      oDiv = createLink(
-        { ...res[i], name: h ? '已开启' : '已关闭' },
-        (oDiv) => {
-          if (linkMode == 'row') {
-            oDiv.classList.add('link');
-          }
-          oDiv.innerText = name;
-        }
-      );
     } else if (type == 'inputEffect') {
       oDiv = createLink(
         { ...res[i], name: inputEffect ? '已开启' : '已关闭' },
@@ -269,11 +252,6 @@ function createLink(obj, cb) {
   oDiv.appendChild(oSpan);
   return oDiv;
 }
-// 输入音效
-function switchKeySound() {
-  let h = !_getData('keySound');
-  _setData('keySound', h);
-}
 // 切换黑暗模式
 function switchDarkStatus() {
   if (darkStatus == 1) {
@@ -334,9 +312,6 @@ function hdClick(e) {
     } else if (type == 'linkMode') {
       linkMode = linkMode == 'row' ? 'col' : 'row';
       _setData('linkMode', linkMode);
-      renderHome(settingData, 0, 1);
-    } else if (type == 'keySound') {
-      switchKeySound();
       renderHome(settingData, 0, 1);
     } else if (type == 'inputEffect') {
       inputEffect = !inputEffect;
