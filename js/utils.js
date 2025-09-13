@@ -62,7 +62,7 @@ function formatDate(opt = {}) {
 }
 // 随机数
 function randomNum(x, y) {
-  return Math.round(Math.random() * (y - x) + x);
+  return Math.floor(Math.random() * (y - x + 1) + x);
 }
 // 随机颜色
 function randomColor() {
