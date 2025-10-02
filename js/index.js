@@ -2,7 +2,7 @@ const box = document.querySelector('#box');
 const darkData = ['随系统', '已开启', '已关闭'];
 const linkModeData = { row: '横向排列', col: '纵向排列' };
 const inputSpeed = () => {
-  return randomNum(1, 3) * 100;
+  return 50;
 }; // 输入速度（毫秒）
 let skipInput = false;
 let HASH = queryURLParams(myOpen()).HASH;
