@@ -21,7 +21,7 @@
     <script>
       // 获取网址图标
       function getFavicon(url) {
-        return `https://hello.heanyi.com/api/getfavicon?u=${encodeURIComponent(
+        return `https://hello.heanyi.com/api/icon?u=${encodeURIComponent(
           url
         )}`;
       }
@@ -29,7 +29,7 @@
       window.addEventListener('load', () => {
         const el = document.body;
         const url = `https://hello.heanyi.com/api/bg/r/${
-          window.innerWidth > 800 ? 'big' : 'small'
+          window.innerWidth > 800 ? 'd' : 'm'
         }`;
         el.style.backgroundImage = `url(${url})`;
         el.style.backgroundRepeat = 'no-repeat';
