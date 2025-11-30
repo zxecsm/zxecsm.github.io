@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet icon" href="./h.svg" />
+    <title>HTML 转 Markdown 输入示例</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 6px 12px;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HTML 转 Markdown</h1>
+
+    <label for="htmlInput">在这里输入 HTML：</label>
+    <textarea id="htmlInput" placeholder="输入 HTML 内容..."></textarea>
+
+    <div style="margin-bottom: 10px">
+      <button id="convertBtn">转换为 Markdown</button>
+      <button id="downloadBtn">下载 Markdown</button>
+    </div>
+
+    <label for="markdownOutput">转换后的 Markdown：</label>
+    <textarea
+      id="markdownOutput"
+      placeholder="转换后的 Markdown 会显示在这里..."
+    ></textarea>
+
+    <script src="./turndown.js"></script>
+
+    <script>
+      const htmlInput = document.getElementById('htmlInput');
+      const markdownOutput = document.getElementById('markdownOutput');
+      const convertBtn = document.getElementById('convertBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+
+      // 初始化 TurndownService
+      const turndownService = new TurndownService({
+        headingStyle: 'atx',
+        bulletListMarker: '-',
+        codeBlockStyle: 'fenced',
+      });
+
+      // 使用 GFM 插件支持表格、任务列表、删除线
+      turndownService.use(turndownPluginGfm.gfm);
+
+      // 忽略 script 和 style 标签
+      turndownService.addRule('ignoreScripts', {
+        filter: ['script', 'style'],
+        replacement: () => '',
+      });
+
+      // 点击转换按钮
+      convertBtn.addEventListener('click', () => {
+        const html = htmlInput.value;
+        if (!html.trim()) {
+          alert('请输入 HTML 内容！');
+          return;
+        }
+        const markdown = turndownService.turndown(html);
+        markdownOutput.value = markdown;
+      });
+
+      // 点击下载按钮
+      downloadBtn.addEventListener('click', () => {
+        const markdown = markdownOutput.value;
+        if (!markdown.trim()) {
+          alert('请先转换 Markdown！');
+          return;
+        }
+
+        const blob = new Blob([markdown], {
+          type: 'text/markdown;charset=utf-8',
+        });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'content.md';
+        a.click();
+
+        URL.revokeObjectURL(url);
+      });
+    </script>
+  </body>
+</html>

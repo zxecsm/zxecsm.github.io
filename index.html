@@ -21,9 +21,7 @@
     <script>
       // 获取网址图标
       function getFavicon(url) {
-        return `https://hello.heanyi.com/api/icon?u=${encodeURIComponent(
-          url
-        )}`;
+        return `https://hello.heanyi.com/api/icon?u=${encodeURIComponent(url)}`;
       }
       // 随机壁纸
       window.addEventListener('load', () => {
@@ -87,6 +85,12 @@
               name: '数独',
               link: '/page/suduku',
               logo: '/icon/sudu.png',
+            },
+            {
+              type: 'link',
+              name: 'HTML转Markdown',
+              link: '/page/htom',
+              logo: '/icon/h.svg',
             },
             {
               type: 'link',
