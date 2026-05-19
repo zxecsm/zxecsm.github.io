@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -21,12 +21,13 @@
     <script>
       // 获取网址图标
       function getFavicon(url) {
-        return `https://hello.heanyi.com/api/icon?u=${encodeURIComponent(url)}`;
+        const { host } = new URL(url);
+        return `https://favicon.id/${host}`;
       }
       // 随机壁纸
       window.addEventListener('load', () => {
         const el = document.body;
-        const url = `https://hello.heanyi.com/api/bg/r/${
+        const url = `https://hello.145860.xyz/api/bg/r/${
           window.innerWidth > 800 ? 'd' : 'm'
         }`;
         el.style.backgroundImage = `url(${url})`;
