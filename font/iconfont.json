@@ -1,0 +1,23 @@
+{
+  "id": "4157475",
+  "name": "home",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "37053928",
+      "name": "sys-inner",
+      "font_class": "neiwang",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "47331111",
+      "name": "连通外网",
+      "font_class": "liantongwaiwang",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    }
+  ]
+}

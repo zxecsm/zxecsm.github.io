@@ -1,6 +1,15 @@
 const box = document.querySelector('#box');
+const changeModeBtn = document.querySelector('#change_mode_btn');
 const darkData = ['随系统', '已开启', '已关闭'];
 const linkModeData = { row: '横向排列', col: '纵向排列' };
+let isLocalMode = false;
+changeModeBtn.addEventListener('click', function () {
+  isLocalMode = !isLocalMode;
+  this.className = `iconfont ${isLocalMode ? 'icon-neiwang' : 'icon-liantongwaiwang'}`;
+  if (HASH !== 'setting') {
+    renderHome(data, 1, 1);
+  }
+});
 const inputSpeed = () => {
   return 50;
 }; // 输入速度（毫秒）
@@ -94,7 +103,7 @@ async function renderCmd(cmd, immediate) {
             backToTheBottom();
           }
         },
-        skipInput ? 0 : inputSpeed()
+        skipInput ? 0 : inputSpeed(),
       );
     }
   }
@@ -118,7 +127,7 @@ function renderRes(res, immediate) {
         backToTheBottom();
       }
     },
-    skipInput ? 0 : inputSpeed()
+    skipInput ? 0 : inputSpeed(),
   );
 }
 // 添加到界面
@@ -150,7 +159,7 @@ function createRes(res) {
   const resBox = createEl('div');
   resBox.className = 'res_box';
   for (let i = 0; i < res.length; i++) {
-    const { name, link, type } = res[i];
+    const { name, link, type, local } = res[i];
     let oDiv = null;
     if (type === 'link') {
       // 可跳转的
@@ -160,6 +169,7 @@ function createRes(res) {
         }
         oSpan.classList.add('link');
         oSpan.dataset.link = link;
+        if (local) oSpan.dataset.local = local;
       });
     } else if (type === 'date') {
       // 日期
@@ -198,7 +208,7 @@ function createRes(res) {
             oDiv.classList.add('link');
           }
           oDiv.innerText = name;
-        }
+        },
       );
     } else if (type === 'text') {
       oDiv = createDefault('default', name);
@@ -220,11 +230,11 @@ function createDefault(type, name, cb) {
 }
 // 创建链接
 function createLink(obj, cb) {
-  const { name, type, logo, link } = obj;
+  const { name, type, logo, link, local } = obj;
   const oDiv = createEl('div');
   oDiv.className = 'res';
   oDiv.dataset.type = type;
-  oDiv.title = link || '';
+  oDiv.title = isLocalMode ? local || link || '' : link || '';
   if (logo || (!logo && link)) {
     const logoEl = createEl('div');
     logoEl.className = 'logo';
@@ -293,19 +303,23 @@ function hdClick(e) {
     const type = t.parentNode.dataset.type;
     if (type == 'link') {
       const link = t.dataset.link;
-      if (!link) return;
-      myOpen(link, '_blank');
+      const local = t.dataset.local;
+      const targetLink = isLocalMode ? local || link : link;
+      if (!targetLink) return;
+      myOpen(targetLink, '_blank');
     } else if (type == 'dark') {
       darkStatus++;
       switchDarkStatus();
       renderHome(settingData, 0, 1);
     } else if (type == 'setting') {
       if (isEnd) {
+        HASH = 'setting';
         myOpen('/#setting');
         renderHome(settingData, 0, !inputEffect);
       }
     } else if (type == 'back') {
       if (isEnd) {
+        HASH = '';
         myOpen('/#');
         renderHome(data, 1, !inputEffect);
       }

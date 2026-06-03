@@ -134,3 +134,14 @@ body {
     background-color: var(--text-color);
   }
 }
+#change_mode_btn {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  font-size: 25px;
+  color: var(--link-color);
+}
+#change_mode_btn:hover {
+  color: var(--text-hover-color);
+  cursor: url('../img/link.cur'), pointer;
+}
