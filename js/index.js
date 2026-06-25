@@ -4,6 +4,7 @@ const darkData = ['随系统', '已开启', '已关闭'];
 const linkModeData = { row: '横向排列', col: '纵向排列' };
 let isLocalMode = false;
 changeModeBtn.addEventListener('click', function () {
+  if (!isEnd) return;
   isLocalMode = !isLocalMode;
   this.className = `iconfont ${isLocalMode ? 'icon-neiwang' : 'icon-liantongwaiwang'}`;
   if (HASH !== 'setting') {
