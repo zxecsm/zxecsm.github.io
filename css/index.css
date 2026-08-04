@@ -54,6 +54,22 @@ body {
 * {
   text-shadow: 0 0 #888;
 }
+#alert_box {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: var(--bg-box-color);
+  border-radius: 10px;
+  pointer-events: none;
+  font-weight: bold;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0;
+  font-size: 30px;
+  transition: opacity 0.3s;
+}
 #box {
   width: 95%;
   min-height: 70%;

@@ -1,14 +1,30 @@
 const box = document.querySelector('#box');
+const alertBox = document.querySelector('#alert_box');
 const changeModeBtn = document.querySelector('#change_mode_btn');
 const darkData = ['随系统', '已开启', '已关闭'];
 const linkModeData = { row: '横向排列', col: '纵向排列' };
 let isLocalMode = false;
+let alertTimer = null;
+function alertMsg(msg) {
+  if (alertTimer) clearTimeout(alertTimer);
+  alertBox.innerText = msg.trim();
+  alertBox.style.opacity = 1;
+  alertTimer = setTimeout(() => {
+    alertBox.style.opacity = 0;
+  }, 2000);
+}
 changeModeBtn.addEventListener('click', function () {
   if (!isEnd) return;
   isLocalMode = !isLocalMode;
   this.className = `iconfont ${isLocalMode ? 'icon-neiwang' : 'icon-liantongwaiwang'}`;
   if (HASH !== 'setting') {
     renderHome(data, 1, 1);
+  }
+  alertMsg(isLocalMode ? '本地模式' : '远程模式');
+});
+document.addEventListener('keyup', (e) => {
+  if (e.key.toLowerCase() === 'c') {
+    changeModeBtn.click();
   }
 });
 const inputSpeed = () => {
