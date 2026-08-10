@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzg2MzI0MDQ3NDExIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE3MjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PHBhdGggZD0iTTgyMy4xMDQgMjAzLjAwOGMtMTMwLjg4LTE0Ljg0OC0yMjkuMzc2LTUwLjI0LTI5Mi43MzYtMTA1LjM0NGwtMTYuNjQtMTQuNDY0LTE3Ljk4NCAxMi44QzM5Ni40OCAxNjYuOTEyIDI5OC4yNCAyMDIuODggMjAzLjk2OCAyMDIuODhIMTc2djM5MmMwIDEyMC4xOTIgMTA1LjkyIDIyOS4xODQgMzIzLjkwNCAzMzMuMjQ4bDExLjUyIDUuNDQgMTEuNjQ4LTQuOTkyYzIxNS42MTYtOTIuNjA4IDMyNC45MjgtMjA0Ljg2NCAzMjQuOTI4LTMzMy42OTZWMjA1LjgyNGwtMjQuODk2LTIuODE2eiBtLTMxLjEwNCAzOTEuODA4YzAgMTAyLjIwOC05My45NTIgMTk1LjQ1Ni0yNzkuNDI0IDI3Ny4xODQtMTg2LjI0LTkwLjc1Mi0yODAuNTc2LTE4NC0yODAuNTc2LTI3Ny4xMlYyNTcuOTJjOTEuNTg0LTUuOTUyIDE4NS4xNTItNDAuODMyIDI3OC42NTYtMTA0LjA2NCA2Ny4yIDUxLjIgMTYxLjYgODUuMzEyIDI4MS4zNDQgMTAxLjY5NnYzMzkuMjY0eiIgcC1pZD0iMTcyMiI+PC9wYXRoPjxwYXRoIGQ9Ik0zNzguODE2IDQ1My43NmEyOC4wMzIgMjguMDMyIDAgMCAwLTQxLjk4NCAzNy4wNTZsMTA2LjU2IDEyMC41NzZhNTUuODA4IDU1LjgwOCAwIDAgMCA2NS45MiAxMy40NCA1Ni4zMiA1Ni4zMiAwIDAgMCAxOS41Mi0xNS4xNjhsMTcyLjg2NC0yMTIuMzUyYTI4LjAzMiAyOC4wMzIgMCAxIDAtNDMuMzkyLTM1LjM5Mkw0ODUuMzc2IDU3NC4yNzIgMzc4LjgxNiA0NTMuNzZ6IiBwLWlkPSIxNzIzIj48L3BhdGg+PC9zdmc+"
+    />
+    <title>2FA 验证码生成器</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f4f6f8;
+      }
+      .card {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+        width: 90%;
+        box-sizing: border-box;
+      }
+      h2 {
+        margin-top: 0;
+        color: #333;
+      }
+      .input-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      label {
+        display: block;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 15px;
+        font-family: monospace;
+      }
+      .code-display {
+        font-size: 40px;
+        font-weight: bold;
+        letter-spacing: 6px;
+        color: #1677ff;
+        margin: 20px 0 10px;
+        font-family: monospace;
+      }
+      .timer {
+        font-size: 14px;
+        color: #888;
+      }
+      .error {
+        color: #ff4d4f;
+        font-size: 14px;
+        margin-top: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>2FA 验证码生成器</h2>
+
+      <div class="input-group">
+        <label for="secret">请输入 2FA 密钥 (Secret Key):</label>
+        <input
+          type="text"
+          id="secret"
+          placeholder="输入 32 位密钥..."
+          autocomplete="off"
+        />
+        <div class="error" id="error-msg"></div>
+      </div>
+
+      <div class="code-display" id="code">------</div>
+      <div class="timer" id="timer">剩余时间: -- 秒</div>
+    </div>
+
+    <script>
+      const secretInput = document.getElementById('secret');
+      const codeDisplay = document.getElementById('code');
+      const timerDisplay = document.getElementById('timer');
+      const errorMsg = document.getElementById('error-msg');
+
+      // Base32 解码
+      function base32ToBytes(base32) {
+        // 清除空格并统一转成大写
+        const clean = base32.replace(/\s+/g, '').toUpperCase();
+
+        if (!clean) return new Uint8Array(0);
+
+        // 检查是否包含非 Base32 字符（Base32 仅允许 A-Z 和 2-7）
+        if (/[^A-Z2-7]/.test(clean)) {
+          throw new Error('密钥包含无效的字符（Base32 仅支持 A-Z 和 2-7）');
+        }
+
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+        let bits = '';
+
+        for (let i = 0; i < clean.length; i++) {
+          const val = alphabet.indexOf(clean[i]);
+          bits += val.toString(2).padStart(5, '0');
+        }
+
+        // 至少需要 8 个 bit (1 Byte) 才能进行哈希运算
+        if (bits.length < 8) {
+          return new Uint8Array(0);
+        }
+
+        const bytes = new Uint8Array(Math.floor(bits.length / 8));
+        for (let i = 0; i < bytes.length; i++) {
+          bytes[i] = parseInt(bits.substr(i * 8, 8), 2);
+        }
+        return bytes;
+      }
+
+      // HMAC-SHA1 计算 TOTP
+      async function generateTOTP(secretStr) {
+        const keyBytes = base32ToBytes(secretStr);
+        if (keyBytes.length === 0) return null;
+
+        const epoch = Math.floor(Date.now() / 1000);
+        const timeStep = Math.floor(epoch / 30);
+
+        const buffer = new ArrayBuffer(8);
+        const view = new DataView(buffer);
+        view.setUint32(4, timeStep, false);
+
+        const cryptoKey = await window.crypto.subtle.importKey(
+          'raw',
+          keyBytes,
+          { name: 'HMAC', hash: 'SHA-1' },
+          false,
+          ['sign'],
+        );
+
+        const signature = await window.crypto.subtle.sign(
+          'HMAC',
+          cryptoKey,
+          buffer,
+        );
+        const hmac = new Uint8Array(signature);
+
+        const offset = hmac[hmac.length - 1] & 0xf;
+        const code =
+          (((hmac[offset] & 0x7f) << 24) |
+            ((hmac[offset + 1] & 0xff) << 16) |
+            ((hmac[offset + 2] & 0xff) << 8) |
+            (hmac[offset + 3] & 0xff)) %
+          1000000;
+
+        return code.toString().padStart(6, '0');
+      }
+
+      async function updateOTP() {
+        const rawSecret = secretInput.value.trim();
+        const epoch = Math.floor(Date.now() / 1000);
+        const timeRemaining = 30 - (epoch % 30);
+
+        timerDisplay.innerText = `剩余时间: ${timeRemaining} 秒`;
+
+        if (!rawSecret) {
+          codeDisplay.innerText = '------';
+          errorMsg.innerText = '';
+          return;
+        }
+
+        try {
+          const code = await generateTOTP(rawSecret);
+          if (code) {
+            codeDisplay.innerText = code;
+            errorMsg.innerText = '';
+          } else {
+            // 字符合法但太短，还无法算出验证码
+            codeDisplay.innerText = '------';
+            errorMsg.innerText = '';
+          }
+        } catch (err) {
+          codeDisplay.innerText = '------';
+          errorMsg.innerText = err.message;
+        }
+      }
+
+      secretInput.addEventListener('input', updateOTP);
+      setInterval(updateOTP, 1000);
+    </script>
+  </body>
+</html>

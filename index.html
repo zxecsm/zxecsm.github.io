@@ -28,13 +28,17 @@
     <script>
       // 获取网址图标
       function getFavicon(url) {
-        const { host } = new URL(url);
-        return `https://favicon.id/${host}`;
+        try {
+          const { host } = new URL(url);
+          return `https://favicon.id/${host}`;
+        } catch (error) {
+          return '';
+        }
       }
       // 随机壁纸
       window.addEventListener('load', () => {
         const el = document.body;
-        const url = `https://hello.145860.xyz/api/bg/r/${
+        const url = `https://hello.14860.eu.org/api/bg/r/${
           window.innerWidth > 800 ? 'd' : 'm'
         }`;
         el.style.backgroundImage = `url(${url})`;
@@ -88,6 +92,12 @@
               name: '生成密码',
               link: '/page/getpd',
               logo: '/icon/pd.png',
+            },
+            {
+              type: 'link',
+              name: '2FA',
+              link: '/page/2fa',
+              logo: '/icon/2fa.svg',
             },
             {
               type: 'link',
